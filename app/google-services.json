@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "576908513673",
+    "project_id": "justus-fri",
+    "storage_bucket": "justus-fri.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576908513673:android:edaaae1b6929b72e975158",
+        "android_client_info": {
+          "package_name": "com.example.justus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576908513673-m88ji5pga86oudkmmajgr6eo0vpr40jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzY63Zi2lwCmfxGc6yBTgO18U3_NY_494"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576908513673-m88ji5pga86oudkmmajgr6eo0vpr40jo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
