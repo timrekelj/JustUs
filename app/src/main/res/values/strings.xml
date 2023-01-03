@@ -16,4 +16,6 @@
     <string name="click_to_login">Click to login</string>
     <string name="click_to_register">Click to register</string>
     <string name="logout">logout</string>
+    <string name="main_page">Main page</string>
+    <string name="icon1">icon1</string>
 </resources>
