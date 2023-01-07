@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,7 +39,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Home extends AppCompatActivity {
+public class Notes extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
@@ -51,7 +52,7 @@ public class Home extends AppCompatActivity {
     private ProgressDialog loader;
 
     private String key = "";
-    private String task;
+    private String note;
     private String desc;
 
     @Override
@@ -83,6 +84,7 @@ public class Home extends AppCompatActivity {
                 return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -102,7 +104,7 @@ public class Home extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         onlineUserID = mUser.getUid();
-        reference = FirebaseDatabase.getInstance().getReference().child("tasks").child(onlineUserID);
+        reference = FirebaseDatabase.getInstance().getReference().child("notes").child(onlineUserID);
 
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -117,28 +119,28 @@ public class Home extends AppCompatActivity {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        View myView = inflater.inflate(R.layout.input, null);
+        View myView = inflater.inflate(R.layout.input_notes, null);
         myDialog.setView(myView);
 
         final AlertDialog dialog = myDialog.create();
         dialog.setCancelable(false);
 
-        final EditText task = myView.findViewById(R.id.task);
-        final EditText description = myView.findViewById(R.id.description);
-        Button save = myView.findViewById(R.id.btn_save);
-        Button cancel = myView.findViewById(R.id.btn_cancel);
+        final EditText note = myView.findViewById(R.id.note_name);
+        final EditText description = myView.findViewById(R.id.description_notes);
+        Button save = myView.findViewById(R.id.btn_save_note);
+        Button cancel = myView.findViewById(R.id.btn_cancel_note);
 
         save.setOnClickListener(view -> {
-            String mTask = task.getText().toString().trim();
+            String mTask = note.getText().toString().trim();
             String mDescription = description.getText().toString().trim();
             String id = reference.push().getKey();
             String date = DateFormat.getDateInstance().format(new Date());
             if (TextUtils.isEmpty(mTask)){
-                task.setError("Task required");
+                note.setError("Note required");
                 return;
             }
             if(TextUtils.isEmpty(mDescription)){
-                task.setError("Description required");
+                note.setError("Description required");
                 return;
             } else{
                 loader.setMessage("Adding the data");
@@ -151,12 +153,12 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task1) {
                         if (task1.isSuccessful()){
-                            Toast.makeText(Home.this, "Insert successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Insert successful", Toast.LENGTH_SHORT).show();
                             loader.dismiss();
                         }
                         else {
                             String error = task1.getException().toString();
-                            Toast.makeText(Home.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Failed: " + error, Toast.LENGTH_SHORT).show();
                             loader.dismiss();
                         }
                     }
@@ -187,6 +189,7 @@ public class Home extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull Model model) {
+
                 holder.setDate(model.getDate());
                 holder.setDesc(model.getDescription());
                 holder.setTask(model.getTask());
@@ -196,7 +199,7 @@ public class Home extends AppCompatActivity {
                     public void onClick(View view) {
 
                         key = getRef(position).getKey();
-                        task = model.getTask();
+                        note = model.getTask();
                         desc = model.getDescription();
 
                         updateTask();
@@ -208,15 +211,13 @@ public class Home extends AppCompatActivity {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.getdata, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.get_note, parent, false);
                 return new MyViewHolder(view);
             }
         };
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
-
-
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         View mView;
@@ -227,12 +228,12 @@ public class Home extends AppCompatActivity {
 
         }
         public void setTask(String task){
-            TextView taskTextView = mView.findViewById(R.id.taskTab);
+            TextView taskTextView = mView.findViewById(R.id.noteShow);
             taskTextView.setText(task);
 
         }
         public void setDesc(String description){
-            TextView descTextView = mView.findViewById(R.id.descTab);
+            TextView descTextView = mView.findViewById(R.id.noteTAB);
             descTextView.setText(description);
 
         }
@@ -241,40 +242,37 @@ public class Home extends AppCompatActivity {
             dateTextView.setText(date);
         }
     }
-    private void doneTask(){
-
-    }
     private void updateTask(){
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.update, null);
+        View view = inflater.inflate(R.layout.update_note, null);
         myDialog.setView(view);
 
         AlertDialog dialog = myDialog.create();
 
-        EditText mTask = view.findViewById(R.id.editTask);
-        EditText mDescription = view.findViewById(R.id.editDesc);
+        EditText mTask = view.findViewById(R.id.editNote_name);
+        EditText mDescription = view.findViewById(R.id.editNote);
 
-        mTask.setText(task);
-        mTask.setSelection(task.length());
+        mTask.setText(note);
+        mTask.setSelection(note.length());
 
         mDescription.setText(desc);
         mDescription.setSelection(desc.length());
 
-        Button deleteBTN = view.findViewById(R.id.btn_delete);
-        Button updateBTN = view.findViewById(R.id.btn_update);
-        Button doneBTN = view.findViewById(R.id.btn_done);
+        Button deleteBTN = view.findViewById(R.id.btn_delete_note);
+        Button updateBTN = view.findViewById(R.id.btn_update_note);
+
         updateBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                task = mTask.getText().toString().trim();
+                note = mTask.getText().toString().trim();
                 desc = mDescription.getText().toString().trim();
 
                 String date = DateFormat.getDateInstance().format(new Date());
 
-                Model model = new Model(task, desc, key, date);
+                Model model = new Model(note, desc, key, date);
 
                 reference.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -282,10 +280,10 @@ public class Home extends AppCompatActivity {
 
                         if (task.isSuccessful()){
 
-                            Toast.makeText(Home.this, "Update successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Update successful", Toast.LENGTH_SHORT).show();
                         }else{
                             String error = task.getException().toString();
-                            Toast.makeText(Home.this, "Update failed" + error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Update failed" + error, Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -305,38 +303,25 @@ public class Home extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if(task.isSuccessful()){
-                            Toast.makeText(Home.this, "Delete successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Delete successful", Toast.LENGTH_SHORT).show();
                         }else{
                             String error = task.getException().toString();
-                            Toast.makeText(Home.this, "Delete failed" + error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Notes.this, "Delete failed" + error, Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
+
                 dialog.dismiss();
+
             }
         });
-        doneBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                reference.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if(task.isSuccessful()){
-                            Toast.makeText(Home.this, "Delete successful", Toast.LENGTH_SHORT).show();
-                        }else{
-                            String error = task.getException().toString();
-                            Toast.makeText(Home.this, "Delete failed" + error, Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-                dialog.dismiss();
-            }
-        });
 
         dialog.show();
+
+
+
+
     }
 }

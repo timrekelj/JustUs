@@ -32,7 +32,7 @@
                 android:padding="10dp"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-            
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/taskTab"
+                android:id="@+id/noteShow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -50,7 +50,7 @@
                 android:maxLines="1"/>
 
             <TextView
-                android:id="@+id/descTab"
+                android:id="@+id/noteTAB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -58,10 +58,8 @@
                 android:text="Description"
                 android:textSize="15sp"
                 android:maxLines="3"/>
-
-
         </LinearLayout>
-            
+
 
     </LinearLayout>
 

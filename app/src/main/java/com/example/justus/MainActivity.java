@@ -69,11 +69,23 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.TODO:
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(getApplicationContext(), Home.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.Seznam:
+                Intent intent2 = new Intent(getApplicationContext(), Notes.class);
+                startActivity(intent2);
+                finish();
+                return true;
+
+            case R.id.main_page:
+                Intent intent3 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent3);
                 finish();
                 return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }

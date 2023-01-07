@@ -14,11 +14,6 @@
         app:showAsAction="never"
         />
     <item
-        android:id="@+id/Koledar"
-        android:title="Koledar"
-        app:showAsAction="never"
-        />
-    <item
         android:id="@+id/TODO"
         android:title="Opravila"
         app:showAsAction="never"

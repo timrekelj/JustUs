@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Update the task"
+        android:text="Update NOTE"
         android:gravity="center"
         android:background="#D1B19D"
         android:textSize="18sp"
@@ -24,30 +24,17 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Task"
-                android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_margin="10dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="4">
 
             <EditText
-                android:id="@+id/editTask"
+                android:id="@+id/editNote_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Task"
+                android:hint="Name"
                 android:textColor="#000"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -60,18 +47,6 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_margin="10dp"/>
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -79,14 +54,14 @@
             android:layout_weight="4">
 
             <EditText
-                android:id="@+id/editDesc"
+                android:id="@+id/editNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Description"
+                android:hint="Note"
                 android:textColor="#000"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -106,7 +81,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_delete"
+                android:id="@+id/btn_delete_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -115,7 +90,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="Delete"
                 android:textAllCaps="false"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
 
@@ -127,7 +102,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_update"
+                android:id="@+id/btn_update_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -136,34 +111,12 @@
                 android:layout_marginBottom="10dp"
                 android:text="Save"
                 android:textAllCaps="false"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
 
 
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_done"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Done"
-                android:textAllCaps="false"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-
-
-        </RelativeLayout>
-
 
     </LinearLayout>
 
